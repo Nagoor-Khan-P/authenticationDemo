@@ -13,11 +13,16 @@ public class UserController {
     private MyUserDetailsService myUserDetailsService;
 
     @PostMapping("/register")
-    public Users createUser(@RequestBody Users users) {
-        return myUserDetailsService.createUser(users);
+    public Users createUser(@RequestBody Users user) {
+        return myUserDetailsService.createUser(user);
     }
 
-    @GetMapping("/get")
+    @PostMapping("/login")
+    public String loginUser(@RequestBody Users user) {
+        return myUserDetailsService.validateUserLogin(user);
+    }
+
+    @GetMapping
     public String get() {
         return "Users";
     }
