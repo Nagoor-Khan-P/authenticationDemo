@@ -1,4 +1,4 @@
-package com.learning.authenticationdemo.barberbuddy.model;
+package com.learning.authenticationdemo.barberbuddy.customer.model;
 
 import com.learning.authenticationdemo.model.Users;
 import jakarta.persistence.*;
