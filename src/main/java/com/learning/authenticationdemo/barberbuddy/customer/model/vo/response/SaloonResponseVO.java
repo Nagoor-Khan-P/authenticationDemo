@@ -1,5 +1,7 @@
 package com.learning.authenticationdemo.barberbuddy.customer.model.vo.response;
 
+import java.time.LocalDateTime;
+
 public class SaloonResponseVO {
 
     private Long id;
@@ -7,11 +9,14 @@ public class SaloonResponseVO {
     private String address;
     private String barberUsername;
 
-    public SaloonResponseVO(Long id, String name, String address, String barberUsername) {
+    private LocalDateTime createdAt;
+
+    public SaloonResponseVO(Long id, String name, String address, String barberUsername, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.barberUsername = barberUsername;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -44,5 +49,13 @@ public class SaloonResponseVO {
 
     public void setBarberUsername(String barberUsername) {
         this.barberUsername = barberUsername;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
