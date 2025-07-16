@@ -14,4 +14,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByUserId(Long userId);
 
     boolean existsBySlotIdAndDateAndTime(Long slotId, LocalDate date, LocalTime time);
+
+    List<Booking> findBySaloonId(Long saloonId);
+
+    List<Booking> findByStatus(String status);
 }
