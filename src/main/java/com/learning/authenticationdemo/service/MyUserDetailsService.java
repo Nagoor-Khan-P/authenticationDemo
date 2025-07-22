@@ -56,7 +56,7 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
-        return "User registered suucessfully!";
+        return "User registered successfully!";
     }
 
     public String validateUserLogin(Users user) {
