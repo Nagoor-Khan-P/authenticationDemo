@@ -47,6 +47,12 @@ public class CustomerController {
         return ResponseEntity.ok(saloons.stream().map(saloonMapper::toResponse).toList());
     }
 
+    @GetMapping("/saloons/{saloonId}")
+    public ResponseEntity<SaloonResponseVO> getSaloon(@PathVariable("saloonId") Long saloonId) {
+        Saloon saloon = customerService.fetchSaloonById(saloonId);
+        return ResponseEntity.ok(saloonMapper.toResponse(saloon));
+    }
+
     @GetMapping("/saloons/{saloonId}/slots")
     public ResponseEntity<List<SlotResponseVO>> getAvailableSlots(@PathVariable("saloonId") Long saloonId) {
         List<Slot> slotsAvailable = customerService.fetchAvailableSlots(saloonId);

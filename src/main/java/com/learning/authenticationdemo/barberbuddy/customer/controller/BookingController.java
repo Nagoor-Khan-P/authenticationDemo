@@ -47,7 +47,7 @@ public class BookingController {
         return ResponseEntity.ok(Map.of("message", response));
     }
 
-    @GetMapping("/{saloonId}")
+    @GetMapping("/saloon/{saloonId}")
     public ResponseEntity<List<BookingResponseVO>> getBookingBySaloonId(@PathVariable("saloonId") Long saloonId) {
         return ResponseEntity.ok(bookingService.fetchBookingForSaloon(saloonId).stream().map(bookingMapper::toResponseVO).toList());
     }

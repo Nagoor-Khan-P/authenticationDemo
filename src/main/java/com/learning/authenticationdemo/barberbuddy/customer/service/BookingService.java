@@ -2,7 +2,9 @@ package com.learning.authenticationdemo.barberbuddy.customer.service;
 
 import com.learning.authenticationdemo.barberbuddy.customer.model.Booking;
 import com.learning.authenticationdemo.barberbuddy.customer.model.BookingStatus;
+import com.learning.authenticationdemo.barberbuddy.customer.model.Slot;
 import com.learning.authenticationdemo.barberbuddy.customer.repo.BookingRepository;
+import com.learning.authenticationdemo.barberbuddy.customer.repo.SlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @Autowired
+    private SlotRepository slotRepository;
+
     public String bookSlot(Booking booking) {
         boolean alreadyBooked = bookingRepository.existsBySlotIdAndDateAndTime(
                 booking.getSlotId(), booking.getDate(), booking.getTime());
@@ -25,6 +30,12 @@ public class BookingService {
 
         booking.setStatus(BookingStatus.BOOKED.name());
         bookingRepository.save(booking);
+        Optional<Slot> opSlot = slotRepository.findById(booking.getSlotId());
+        if (opSlot.isPresent()) {
+            Slot slot = opSlot.get();
+            slot.setBooked(Boolean.TRUE);
+            slotRepository.save(slot);
+        }
         return "Booking successful!";
     }
 
