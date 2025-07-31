@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SaloonRepository extends JpaRepository<Saloon, Long> {
     List<Saloon> findAll();
+
+    List<Saloon> findByBarberId(Long barberId);
 }

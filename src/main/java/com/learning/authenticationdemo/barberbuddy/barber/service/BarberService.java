@@ -8,6 +8,7 @@ import com.learning.authenticationdemo.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,10 @@ public class BarberService {
         }
         slot.setSaloon(saloon.get());
         return slotRepository.save(slot);
+    }
+
+    public List<Saloon> getSaloonsOfBarber(Long barberId) {
+        return saloonRepository.findByBarberId(barberId);
     }
 
     public Saloon fetchSaloonById(Long saloonId) {

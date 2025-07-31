@@ -6,6 +6,7 @@ import com.learning.authenticationdemo.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,6 +17,12 @@ public class UserController {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+
+    @GetMapping("/profile")
+    public ResponseEntity<Users> getProfile(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(myUserDetailsService.fetchUserByUserName(username));
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody Users user) {

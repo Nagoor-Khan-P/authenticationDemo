@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/barber")
 public class BarberController {
@@ -40,6 +42,11 @@ public class BarberController {
         Saloon saloon = saloonMapper.toEntity(saloonRequestVO);
         saloon.setBarber(barber);
         return ResponseEntity.ok(saloonMapper.toResponse(barberService.createSaloon(saloon)));
+    }
+
+    @GetMapping("/{barberId}/saloons")
+    public ResponseEntity<List<SaloonResponseVO>> fetchSaloonsOfBarber(@PathVariable("barberId") Long barberId) {
+        return ResponseEntity.ok(barberService.getSaloonsOfBarber(barberId).stream().map(saloonMapper::toResponse).toList());
     }
 
     @PostMapping("/saloon/slot")

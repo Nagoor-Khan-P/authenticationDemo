@@ -35,12 +35,6 @@ public class CustomerController {
     @Autowired
     private SlotMapper slotMapper;
 
-    @GetMapping("/profile")
-    public ResponseEntity<Users> getProfile(Authentication authentication) {
-        String username = authentication.getName();
-        return ResponseEntity.ok(myUserDetailsService.fetchUserByUserName(username));
-    }
-
     @GetMapping("/saloons")
     public ResponseEntity<List<SaloonResponseVO>> getAllSaloons() {
         List<Saloon> saloons = customerService.fetchAllSaloons();
