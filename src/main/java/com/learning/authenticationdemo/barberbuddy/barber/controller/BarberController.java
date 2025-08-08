@@ -44,6 +44,16 @@ public class BarberController {
         return ResponseEntity.ok(saloonMapper.toResponse(barberService.createSaloon(saloon)));
     }
 
+    @GetMapping("/saloon/{saloonId}")
+    public ResponseEntity<SaloonResponseVO> fetchSaloon(@PathVariable("saloonId") Long saloonId) {
+        return ResponseEntity.ok(saloonMapper.toResponse(barberService.fetchSaloonById(saloonId)));
+    }
+
+    @GetMapping("/saloon/{saloonId}/slots")
+    public ResponseEntity<List<SlotResponseVO>> fetchSlotsBySaloon(@PathVariable("saloonId") Long saloonId) {
+        return ResponseEntity.ok(barberService.fetchSlotsBySaloonId(saloonId).stream().map(slotMapper::toResponse).toList());
+    }
+
     @GetMapping("/{barberId}/saloons")
     public ResponseEntity<List<SaloonResponseVO>> fetchSaloonsOfBarber(@PathVariable("barberId") Long barberId) {
         return ResponseEntity.ok(barberService.getSaloonsOfBarber(barberId).stream().map(saloonMapper::toResponse).toList());
