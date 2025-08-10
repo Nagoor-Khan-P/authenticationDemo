@@ -44,6 +44,18 @@ public class BarberController {
         return ResponseEntity.ok(saloonMapper.toResponse(barberService.createSaloon(saloon)));
     }
 
+    @PutMapping("/saloon/{saloonId}")
+    public ResponseEntity<SaloonResponseVO> updateSaloon(
+            @PathVariable Long saloonId,
+            @RequestBody SaloonRequestVO saloonRequestVO, Authentication authentication
+    ) {
+        String barberName = authentication.getName();
+        Users barber = myUserDetailsService.fetchUserByUserName(barberName);
+        Saloon saloon = saloonMapper.toEntity(saloonRequestVO);
+        saloon.setId(saloonId);
+        saloon.setBarber(barber);
+        return ResponseEntity.ok(saloonMapper.toResponse(barberService.updateSaloon(saloon)));
+    }
     @GetMapping("/saloon/{saloonId}")
     public ResponseEntity<SaloonResponseVO> fetchSaloon(@PathVariable("saloonId") Long saloonId) {
         return ResponseEntity.ok(saloonMapper.toResponse(barberService.fetchSaloonById(saloonId)));

@@ -80,4 +80,20 @@ public class BarberService {
     public List<Slot> fetchSlotsBySaloonId(Long saloonId) {
         return slotRepository.findBySaloonId(saloonId);
     }
+
+    public Saloon updateSaloon(Saloon saloon) {
+        Saloon existing = saloonRepository.findById(saloon.getId())
+                .orElseThrow(() -> new AppException("Saloon not found"));
+
+        // Ensure this saloon belongs to the barber
+        if (existing.getBarber().getId() != saloon.getBarber().getId()) {
+            throw new AppException(String.format("This Saloon doesn't belongs to barber %s", saloon.getBarber().getName()));
+        }
+
+        // Update fields
+        existing.setName(saloon.getName());
+        existing.setAddress(saloon.getAddress());
+        return saloonRepository.save(existing);
+
+    }
 }
