@@ -1,22 +1,27 @@
 package com.learning.authenticationdemo.controller;
 
+import com.learning.authenticationdemo.controller.mapper.UserMapper;
 import com.learning.authenticationdemo.exception.AppException;
 import com.learning.authenticationdemo.model.Users;
+import com.learning.authenticationdemo.model.usermodel.UserLoginResponse;
 import com.learning.authenticationdemo.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/auth")
 public class UserController {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/profile")
     public ResponseEntity<Users> getProfile(Authentication authentication) {
@@ -31,8 +36,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> loginUser(@RequestBody Users user) {
-        return ResponseEntity.ok(Map.of("token", myUserDetailsService.validateUserLogin(user)));
+    public ResponseEntity<UserLoginResponse> loginUser(@RequestBody Users user) {
+        String token = myUserDetailsService.validateUserLogin(user);
+        user = myUserDetailsService.fetchUserByUserName(user.getUsername());
+        return ResponseEntity.ok(userMapper.toLoginResponse(user, token));
     }
 
     @GetMapping("/validate")

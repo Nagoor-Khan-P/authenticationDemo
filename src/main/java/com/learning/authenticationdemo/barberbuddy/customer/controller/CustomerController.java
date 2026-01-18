@@ -7,11 +7,9 @@ import com.learning.authenticationdemo.barberbuddy.customer.model.mapper.SlotMap
 import com.learning.authenticationdemo.barberbuddy.customer.model.vo.response.SaloonResponseVO;
 import com.learning.authenticationdemo.barberbuddy.customer.model.vo.response.SlotResponseVO;
 import com.learning.authenticationdemo.barberbuddy.customer.service.CustomerService;
-import com.learning.authenticationdemo.model.Users;
 import com.learning.authenticationdemo.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/users/register", "/users/login").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .requestMatchers("/customer/**", "/bookings/**").hasRole("USER")
                         .requestMatchers("/barber/**", "/saloon/**").hasRole("BARBER")
                         .anyRequest().authenticated())
